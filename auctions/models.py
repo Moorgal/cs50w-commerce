@@ -21,30 +21,39 @@ class Listing(models.Model):
     image_link = models.CharField(max_length=2000)
     is_available = models.BooleanField(default=True)
     bid_amount = models.IntegerField(default=0, null=True, blank=True)
-    date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
+    date = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
         return self.title
     
 
-#class Bids(models.Model):
-   # id
-   # listing_id
-   # price
-   # date
-   # user
+class Bids(models.Model):
+   listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
+   amount = models.IntegerField(default=0)
+   user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+   date = models.DateTimeField(auto_now_add=True)
+   id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+   def __str__(self):
+       return self.listing_id
 
 
-#class watchlist
-#id
-#user
-#listing_id
+class Watchlist(models.Model):
+    listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
-#class comments
-##id
-#listing_id
-#User
-#body
-#date
+    def __str__(self):
+       return self.user_id
+
+
+class Comments(models.Model):
+    listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField(null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
