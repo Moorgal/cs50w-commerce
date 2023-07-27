@@ -4,4 +4,20 @@
     <h2>Active Listings</h2>
 
     TODO
+    <!-- title
+    image link
+category
+listing price -->
+{% for listing in listings %}
+<div style="border: 1px solid grey; margin: 10px;">
+    <a href="http://">
+    <h1>{{listing.title}}</h1>
+    <img src="{{listing.image_link}}" alt="image" style="height: 25vh;">
+    <p>{{listing.listing_price}}</p>
+</a>
+    {% for category in listing.category.all %}
+        <span style="border: 1px solid grey">{{category}}</span>
+    {% endfor %}
+</div>
+{% endfor %}
 {% endblock %}
