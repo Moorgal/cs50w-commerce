@@ -13,6 +13,12 @@ def index(request):
     return render(request, "auctions/index.html", context)
 
 
+def single_page(request, pk):
+    page = Listing.objects.get(id=pk)
+    context = {'page': page}
+    return render(request, "auctions/single_page.html", context)
+
+
 def login_view(request):
     if request.method == "POST":
 

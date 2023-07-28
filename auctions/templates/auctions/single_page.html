@@ -2,15 +2,19 @@
 
 {% block body %}
 
-<h1>Listing name</h1>
+<h1>{{page.title}}</h1>
 <hr>
-<span style="border: 1px solid grey">category</span>
-<p>description</p>
-<p>listing price</p>
-<img src="#" alt="image" style="height: 25vh;">
-<p>is_available</p>
+{% for category in page.category.all %}
+<span style="border: 1px solid grey">{{category}}</span>
+{% endfor %}
+<p>{{page.description}}</p>
+<p>{{listing_price}}</p>
+<img src="{{page.image_link}}" alt="image" style="height: 25vh;">
+<p>{{is_available}}</p>
 <p>amount of bids</p>
-<p>owner</p>
-<p>listing date</p>
+<p>{{page.user}}</p>
+<p>{{page.date}}</p>
 <hr>
-{% endblock content %}
+<a href="{% url 'index' %}">Home</a>
+</a>
+{% endblock body %}
