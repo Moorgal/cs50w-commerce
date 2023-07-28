@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Listing
+from .forms import ListingForm
 
 
 def index(request):
@@ -17,6 +18,18 @@ def single_page(request, pk):
     page = Listing.objects.get(id=pk)
     context = {'page': page}
     return render(request, "auctions/single_page.html", context)
+
+def createListing(request):
+    form = ListingForm()
+
+    if request.method == 'POST':
+        owner = Listing(user=request.user)
+        form = ListingForm(request.POST, instance=owner)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'auctions/listing_form.html', context)
 
 
 def login_view(request):
