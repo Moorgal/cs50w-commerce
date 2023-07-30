@@ -46,6 +46,16 @@ def updateListing(request, pk):
 
 
 
+def deleteListing(request, pk):
+    listing = Listing.objects.get(id=pk)
+    if request.method == 'POST':
+        listing.delete()
+        return redirect('index')
+    context = {'listing': listing}
+    return render(request, 'auctions/delete_template.html', context)
+
+
+
 def login_view(request):
     if request.method == "POST":
 

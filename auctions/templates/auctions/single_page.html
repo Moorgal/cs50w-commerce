@@ -3,19 +3,24 @@
 {% block body %}
 
 <h1>{{page.title}}</h1>
-<hr>
+<hr><p>Category: 
 {% for category in page.category.all %}
 <span style="border: 1px solid grey">{{category}}</span>
 {% endfor %}
+</p>
 <p>{{page.description}}</p>
 <p>{{listing_price}}</p>
 <img src="{{page.image_link}}" alt="image" style="height: 25vh;">
 <p>{{is_available}}</p>
 <p>amount of bids</p>
-<p>{{page.user}}</p>
+<p>Listed by: {{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
-
+<a href="{% url 'update-listing' page.id %}">Edit</a>
+<br>
+<a href="{% url 'delete-listing' page.id %}">Delete</a>
+<hr>
 <a href="{% url 'index' %}">Home</a>
+
 
 {% endblock body %}
