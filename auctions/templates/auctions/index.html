@@ -13,5 +13,9 @@
         <span style="border: 1px solid grey">{{category}}</span>
     {% endfor %}
 </div>
+<a href="{% url 'update-listing' listing.id %}">Edit</a>
+<br>
+<a href="#">Delete</a>
+<hr>
 {% endfor %}
 {% endblock %}
