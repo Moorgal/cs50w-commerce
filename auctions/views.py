@@ -32,6 +32,20 @@ def createListing(request):
     return render(request, 'auctions/listing_form.html', context)
 
 
+def updateListing(request, pk):
+    listing = Listing.objects.get(id=pk)
+    form = ListingForm(instance=listing)
+
+    if request.method == 'POST':
+        form = ListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    context = {'form': form}
+    return render(request, 'auctions/listing_form.html', context)
+
+
+
 def login_view(request):
     if request.method == "POST":
 

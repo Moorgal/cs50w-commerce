@@ -15,6 +15,10 @@
 <p>{{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
+<a href="{% url 'update-listing' listing.id %}">Edit</a>
+<br>
+<a href="#">Delete</a>
+<hr>
 <a href="{% url 'index' %}">Home</a>
 </a>
 {% endblock body %}
