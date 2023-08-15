@@ -13,6 +13,10 @@ def index(request):
     context = {'listings': listings}
     return render(request, "auctions/index.html", context)
 
+def books(request):
+    listings = Listing.objects.filter(category = "Books")
+    context = {"listings": listings}
+    return render(request, "auctions/index.html", context)
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
