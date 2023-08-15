@@ -3,16 +3,25 @@
 {% block body %}
 
 {% for listing in listings %}
-<div class="jumbotron">
-    <a href="{% url 'single_page' listing.id %}">
-    <h1 class="display-4">{{listing.title}}</h1>
-    <img src="{{listing.image_link}}" alt="image" style="height: 25vh;">
-    <p class="lead">{{listing.listing_price}}</p>
-</a>
-    {% for category in listing.category.all %}
+
+
+<div class="card text-center w-75 p-3" style="margin: 10px auto;">
+    <div class="card-header">
+        {% for category in listing.category.all %}
         <span style="border: 1px solid grey">{{category}}</span>
     {% endfor %}
-</div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{listing.title}}</h5>
+      <img src="{{listing.image_link}}" alt="image" style="height: 50vh;"  class="mb-3">
+      <br>
+    <a href="{% url 'single_page' listing.id %}" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+        {{listing.listing_price}} £
+    </div>
+  </div class="mb-3">
+
 
 {% endfor %}
 {% endblock %}
