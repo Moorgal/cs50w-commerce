@@ -4,7 +4,12 @@
 
 {% for listing in listings %}
 
-
+<label for="cat_list">Categories:</label>
+<select name="cat_list" id="cat_list">
+  {% for cat in category %}
+  <option value="{{ cat }}">{{ cat }}</option>
+  {% endfor %}
+</select>
 <div class="card text-center w-75 p-3" style="margin: 10px auto;">
     <div class="card-header">
         {% for category in listing.category.all %}
