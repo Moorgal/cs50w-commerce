@@ -26,18 +26,17 @@
                       Category
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="{% url 'books' %}">Books</a>
-                      <a class="dropdown-item" href="#">Electronics</a>
-                      <a class="dropdown-item" href="#">Decoration</a>
-                      <a class="dropdown-item" href="#">Fashion</a>
-                      <a class="dropdown-item" href="#">Garden</a>
-                      <a class="dropdown-item" href="#">Musical Instruments</a>
+                      {% include "categories.html"%}
+
                     </div>
                   </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'my_listings' %}">My Listings</a>
+              </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                 </li>

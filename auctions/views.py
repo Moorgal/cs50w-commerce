@@ -9,12 +9,12 @@ from .forms import ListingForm
 
 
 def index(request):
-    listings = Listing.objects.all()
+    listings = Listing.objects.filter(is_available=True)
     context = {'listings': listings}
     return render(request, "auctions/index.html", context)
 
-def books(request):
-    listings = Listing.objects.filter(category = "Books")
+def my_listings(request):
+    listings = Listing.objects.filter(user = User.username)
     context = {"listings": listings}
     return render(request, "auctions/index.html", context)
 
