@@ -26,8 +26,8 @@
                       Category
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      {% include "categories.html"%}
-
+                      {% block category_list %}
+                      {% endblock %}
                     </div>
                   </li>
                 {% if user.is_authenticated %}

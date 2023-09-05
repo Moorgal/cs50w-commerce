@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.template import loader
 
 from .models import User, Listing
 from .forms import ListingForm
@@ -17,6 +18,10 @@ def my_listings(request):
     listings = Listing.objects.filter(user = User.username)
     context = {"listings": listings}
     return render(request, "auctions/index.html", context)
+
+def category_list(request):
+    template = loader.get_template('categories.html')
+    return HttpResponse(template.render())
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
