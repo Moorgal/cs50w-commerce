@@ -15,6 +15,18 @@ def index(request):
                'category': category,}
     return render(request, "auctions/index.html", context)
 
+def choose_category(request):
+    # if request.method == 'POST':
+    chosen_category = request.POST['cat']
+    the_category = Categories.objects.filter(title=chosen_category)
+        
+    listings = Listing.objects.filter(is_available=True, category=chosen_category)
+    category = Categories.objects.all()
+    context = {'listings': listings,
+               'category': category,}
+    return render(request, "auctions/index.html", context)
+
+
 def my_listings(request):
     listings = Listing.objects.filter(user = User.username)
     context = {"listings": listings}

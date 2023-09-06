@@ -2,14 +2,20 @@
 
 {% block body %}
 
+
+{% csrf_token %}
+<ul class="nav">
+  {% for cat in category %}
+  <!-- <form action="{% url 'choose_category' %}" method="POST"> -->
+  <li class="nav-item">
+    <a class="nav-link" href="{{ cat }}">{{ cat }}</a>
+  </li>
+<!-- </form> -->
+  {% endfor %}
+</ul>
+
 {% for listing in listings %}
 
-<label for="cat_list">Categories:</label>
-<select name="cat_list" id="cat_list">
-  {% for cat in category %}
-  <option value="{{ cat }}">{{ cat }}</option>
-  {% endfor %}
-</select>
 <div class="card text-center w-75 p-3" style="margin: 10px auto;">
     <div class="card-header">
         {% for category in listing.category.all %}
