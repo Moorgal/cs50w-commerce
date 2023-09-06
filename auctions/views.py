@@ -15,9 +15,9 @@ def index(request):
                'category': category,}
     return render(request, "auctions/index.html", context)
 
-def choosecategory(request, pk):
+def choose_category(request, pk):
         chosen_category = Categories.objects.get(id=pk)
-        the_category = Categories.objects.filter(id=chosen_category)
+        the_category = Categories.objects.filter(title__iexact=chosen_category).first()
         listings = Listing.objects.filter(is_available=True, category=the_category)
         category = Categories.objects.all()
         context = {'listings': listings,
