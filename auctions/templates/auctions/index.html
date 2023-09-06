@@ -3,14 +3,12 @@
 {% block body %}
 
 
-{% csrf_token %}
 <ul class="nav">
   {% for cat in category %}
-  <!-- <form action="{% url 'choose_category' %}" method="POST"> -->
   <li class="nav-item">
-    <a class="nav-link" href="{{ cat }}">{{ cat }}</a>
+      <a class="nav-link" href="{% url 'choose_category' cat.id }">{{ cat }}</a>
+      </a>
   </li>
-<!-- </form> -->
   {% endfor %}
 </ul>
 

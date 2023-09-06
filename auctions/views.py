@@ -15,16 +15,14 @@ def index(request):
                'category': category,}
     return render(request, "auctions/index.html", context)
 
-def choose_category(request):
-    # if request.method == 'POST':
-    chosen_category = request.POST['cat']
-    the_category = Categories.objects.filter(title=chosen_category)
-        
-    listings = Listing.objects.filter(is_available=True, category=chosen_category)
-    category = Categories.objects.all()
-    context = {'listings': listings,
+def choosecategory(request, pk):
+        chosen_category = Categories.objects.get(id=pk)
+        the_category = Categories.objects.filter(id=chosen_category)
+        listings = Listing.objects.filter(is_available=True, category=the_category)
+        category = Categories.objects.all()
+        context = {'listings': listings,
                'category': category,}
-    return render(request, "auctions/index.html", context)
+        return render(request, "auctions/index.html", context)
 
 
 def my_listings(request):
