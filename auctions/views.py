@@ -26,7 +26,8 @@ def choose_category(request, pk):
 
 
 def my_listings(request):
-    listings = Listing.objects.filter(user = User.username)
+    currentUser = request.user
+    listings = Listing.objects.filter(user = currentUser)
     context = {"listings": listings}
     return render(request, "auctions/index.html", context)
 

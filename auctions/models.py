@@ -17,6 +17,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     category = models.ManyToManyField('Categories', blank=True)
+    watchlist = models.ManyToManyField('User', blank=True)
     listing_price = models.FloatField(default=0, null=True, blank=True)
     image_link = models.CharField(max_length=2000)
     is_available = models.BooleanField(default=True)
@@ -38,17 +39,6 @@ class Bids(models.Model):
 
    def __str__(self):
        return self.listing_id
-
-
-class Watchlist(models.Model):
-    listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-
-    def __str__(self):
-       return self.user_id
-
 
 class Comments(models.Model):
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
