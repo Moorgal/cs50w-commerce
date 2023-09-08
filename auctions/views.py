@@ -33,7 +33,9 @@ def my_listings(request):
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
-    context = {'page': page}
+    is_verified = True
+    context = {'page': page,
+               'is_verified': is_verified}
     return render(request, "auctions/single_page.html", context)
 
 def createListing(request):

@@ -3,7 +3,11 @@
 {% block body %}
 
 {% if user.is_authenticated %}
-<p>add to watchlist</p>
+    {% if is_verified === True %}
+    <p>add to watchlist</p>
+    {% else %}
+    <p>remove from watchlist</p>
+    {% endif %}
 {% endif %}
 
 <h1>{{page.title}}</h1>
