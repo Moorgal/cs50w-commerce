@@ -3,10 +3,18 @@
 {% block body %}
 
 {% if user.is_authenticated %}
-    {% if is_verified === True %}
-    <p>add to watchlist</p>
+    {% if is_verified %}
+    <form action="{% url 'removeFromWatchList'%} page.id" method="POST">
+
+        <button type="submit">Remove from Watchlist</button>
+
+    </form>
     {% else %}
-    <p>remove from watchlist</p>
+    <form action="{% url 'addToWatchList'%} page.id" method="POST">
+
+        <button type="submit">Add to Watchlist</button>
+
+    </form>
     {% endif %}
 {% endif %}
 

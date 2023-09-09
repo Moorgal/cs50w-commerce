@@ -38,6 +38,12 @@ def single_page(request, pk):
                'is_verified': is_verified}
     return render(request, "auctions/single_page.html", context)
 
+def addToWatchList(request, pk):
+    return
+
+def removeFromWatchList(request, pk):
+    return
+
 def createListing(request):
     form = ListingForm()
 
