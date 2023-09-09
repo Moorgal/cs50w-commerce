@@ -33,13 +33,15 @@ def my_listings(request):
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
-    is_verified = True
+    is_verified = False
     context = {'page': page,
                'is_verified': is_verified}
     return render(request, "auctions/single_page.html", context)
 
 def addToWatchList(request, pk):
-    return
+    data = Listing.objects.get(id=pk)
+    data.watchlist.add(request.user)
+    return redirect('single_page')
 
 def removeFromWatchList(request, pk):
     return
