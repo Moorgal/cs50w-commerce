@@ -43,6 +43,9 @@ def addToWatchList(request, pk):
     data.watchlist.add(request.user)
     return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
+def my_watchlist(request):
+    return
+
 def removeFromWatchList(request, pk):
     data = Listing.objects.get(id=pk)
     data.watchlist.remove(request.user)
