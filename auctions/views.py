@@ -33,7 +33,7 @@ def my_listings(request):
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
-    is_verified = False
+    is_verified = request.user in page.watchlist.all()
     context = {'page': page,
                'is_verified': is_verified}
     return render(request, "auctions/single_page.html", context)
@@ -41,10 +41,12 @@ def single_page(request, pk):
 def addToWatchList(request, pk):
     data = Listing.objects.get(id=pk)
     data.watchlist.add(request.user)
-    return redirect('single_page')
+    return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
 def removeFromWatchList(request, pk):
-    return
+    data = Listing.objects.get(id=pk)
+    data.watchlist.remove(request.user)
+    return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
 def createListing(request):
     form = ListingForm()

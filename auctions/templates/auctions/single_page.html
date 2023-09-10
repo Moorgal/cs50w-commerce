@@ -4,14 +4,14 @@
 
 {% if user.is_authenticated %}
     {% if is_verified %}
-    <form action="{% url 'removeFromWatchList'%} page.id" method="POST">
-
+    <form action="{% url 'removeFromWatchList' page.id %}" method="POST">
+        {% csrf_token %}
         <button type="submit">Remove from Watchlist</button>
 
     </form>
     {% else %}
-    <form action="{% url 'addToWatchList'%} page.id" method="POST">
-
+    <form action="{% url 'addToWatchList' page.id %}" method="POST">
+    {% csrf_token %}
         <button type="submit">Add to Watchlist</button>
 
     </form>
