@@ -44,7 +44,10 @@ def addToWatchList(request, pk):
     return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
 def my_watchlist(request):
-    return
+    currentUser = request.user
+    listings = currentUser.watchlist.all()
+    context = {"listings": listings}
+    return render(request, "auctions/index.html", context)
 
 def removeFromWatchList(request, pk):
     data = Listing.objects.get(id=pk)
