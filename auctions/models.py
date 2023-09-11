@@ -17,7 +17,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     category = models.ManyToManyField('Categories', blank=True)
-    watchlist = models.ManyToManyField('User', blank=True)
+    watchlist = models.ManyToManyField('User', blank=True, related_name="watchlist")
     listing_price = models.FloatField(default=0, null=True, blank=True)
     image_link = models.CharField(max_length=2000)
     is_available = models.BooleanField(default=True)

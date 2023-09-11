@@ -45,6 +45,7 @@ def addToWatchList(request, pk):
 
 def my_watchlist(request):
     currentUser = request.user
+    # watchlist refers back to all users on that list (refered name in models.py)
     listings = currentUser.watchlist.all()
     context = {"listings": listings}
     return render(request, "auctions/index.html", context)
