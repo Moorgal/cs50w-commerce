@@ -61,7 +61,7 @@ def createComment(request, pk):
     form = CommentForm()
 
     if request.method == 'POST':
-        owner = Comments(user=request.user)
+        owner = Comments(user_id=request.user)
         form = CommentForm(request.POST, instance=owner)
         if form.is_valid():
             form.save()
