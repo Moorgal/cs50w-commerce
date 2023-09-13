@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .models import User, Listing, Categories
-from .forms import ListingForm
+from .models import User, Listing, Categories, Comments
+from .forms import ListingForm, CommentForm
 
 
 def index(request):
@@ -54,6 +54,21 @@ def removeFromWatchList(request, pk):
     data = Listing.objects.get(id=pk)
     data.watchlist.remove(request.user)
     return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
+
+
+def createComment(request, pk):
+    data = Listing.objects.get(id=pk)
+    form = CommentForm()
+
+    if request.method == 'POST':
+        owner = Comments(user=request.user)
+        form = CommentForm(request.POST, instance=owner)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
+        context = {'comment': form}
+    return render(request, "auctions/single_page.html", context)
+
 
 def createListing(request):
     form = ListingForm()

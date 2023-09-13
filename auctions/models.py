@@ -43,7 +43,7 @@ class Bids(models.Model):
 class Comments(models.Model):
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField(null=True, blank=True)
+    body = models.TextField(max_length=500, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 

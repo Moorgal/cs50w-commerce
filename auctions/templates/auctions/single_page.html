@@ -32,6 +32,23 @@
 <p>Listed by: {{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
+
+{% if user.is_authenticated %}
+<p>add comment</p>
+
+<form action="{% url 'createComment' page.id %}" method="POST">
+    {% csrf_token %}
+    {{comment.body}}
+    <button type="submit">Add</button>
+
+</form>
+
+
+{% endif %}
+
+
+
+<hr>
 <a href="{% url 'update-listing' page.id %}">Edit</a>
 <br>
 <a href="{% url 'delete-listing' page.id %}">Delete</a>
