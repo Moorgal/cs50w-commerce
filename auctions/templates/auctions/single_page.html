@@ -44,16 +44,16 @@
 </form>
 
 
-{% endif %}
 
-
-
+{% if page.user == user %}
 <hr>
 <a href="{% url 'update-listing' page.id %}">Edit</a>
 <br>
 <a href="{% url 'delete-listing' page.id %}">Delete</a>
 <hr>
 <a href="{% url 'index' %}">Home</a>
+{% endif %}
 
+{% endif %}
 
 {% endblock body %}
