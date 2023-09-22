@@ -75,14 +75,38 @@ def create_comment(request, pk):
 def create_bid(request, pk):
     listing = Listing.objects.get(id=pk)
     user = request.user
-    amount = request.POST['amount']
-
-    Bids(
+    amount = int(request.POST['amount'])
+    old_amount = listing.listing_price
+    if amount > old_amount:
+        Bids(
         user_id=user,
         listing_id=listing,
         amount=amount,
-    ).save()
-    return HttpResponseRedirect(reverse('single_page', args=(listing.pk,)))
+        ).save()
+        listing.listing_price = amount
+        listing.save()
+
+        page = Listing.objects.get(id=pk)
+        is_verified = request.user in page.watchlist.all()
+        comment = Comments.objects.filter(listing_id=pk)
+        bids = Bids.objects.filter(listing_id=pk)
+        context = {'page': page,
+               'is_verified': is_verified,
+               'comment': comment,
+               'bids':bids,
+               'message': "success"}
+        return render(request, "auctions/single_page.html", context)
+    else:
+        page = Listing.objects.get(id=pk)
+        is_verified = request.user in page.watchlist.all()
+        comment = Comments.objects.filter(listing_id=pk)
+        bids = Bids.objects.filter(listing_id=pk)
+        context = {'page': page,
+               'is_verified': is_verified,
+               'comment': comment,
+               'bids':bids,
+               'message': "Bid must be higher then listing price"}
+        return render(request, "auctions/single_page.html", context)
     
 
 def createListing(request):
