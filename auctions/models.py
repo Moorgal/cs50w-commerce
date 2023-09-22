@@ -18,7 +18,7 @@ class Listing(models.Model):
     description = models.TextField(null=True, blank=True)
     category = models.ManyToManyField('Categories', blank=True)
     watchlist = models.ManyToManyField('User', blank=True, related_name="watchlist")
-    listing_price = models.FloatField(default=0, null=True, blank=True)
+    listing_price = models.IntegerField(default=0, null=True, blank=True)
     image_link = models.CharField(max_length=2000)
     is_available = models.BooleanField(default=True)
     bid_amount = models.IntegerField(default=0, null=True, blank=True)

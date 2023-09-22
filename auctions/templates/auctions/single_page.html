@@ -25,10 +25,8 @@
 {% endfor %}
 </p>
 <p>{{page.description}}</p>
-<p>{{listing_price}}</p>
+<p>£{{page.listing_price}}</p>
     <img src="{{page.image_link}}" alt="image" style="height: 25vh;">
-<p>{{is_available}}</p>
-<p>amount of bids</p>
 <p>Listed by: {{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
@@ -49,7 +47,7 @@
             {% csrf_token %}
             <input type="text" name="amount" placeholder="Amount">
         </form>
-        
+
         {% for bid in bids %}
         <h6><em>{{bid.user_id}}</em></h6>
         <p>£{{bid.amount}}</p>
