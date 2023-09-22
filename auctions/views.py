@@ -61,11 +61,15 @@ def removeFromWatchList(request, pk):
 def create_comment(request, pk):
     listing = Listing.objects.get(id=pk)
     user = request.user
-    form = CommentForm(initial={"listing_id":listing.id})
-    context = {'form': form}
-    print(listing.id)
-    print(user)
-    return render(request, "auctions/create_comment.html", context)
+    body = request.POST['body']
+
+    Comments(
+        user_id=user,
+        listing_id=listing,
+        body=body,
+    ).save()
+    return HttpResponseRedirect(reverse('single_page', args=(listing.pk,)))
+    
 
 def createListing(request):
     form = ListingForm()
