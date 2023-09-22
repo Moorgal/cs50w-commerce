@@ -34,8 +34,10 @@ def my_listings(request):
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
     is_verified = request.user in page.watchlist.all()
+    comment = Comments.objects.filter(listing_id=pk)
     context = {'page': page,
-               'is_verified': is_verified}
+               'is_verified': is_verified,
+               'comment': comment}
     return render(request, "auctions/single_page.html", context)
 
 def addToWatchList(request, pk):
@@ -56,19 +58,14 @@ def removeFromWatchList(request, pk):
     return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
 
-def createComment(request, pk):
-    data = Listing.objects.get(id=pk)
-    form = CommentForm()
-
-    if request.method == 'POST':
-        owner = Comments(user_id=request.user)
-        form = CommentForm(request.POST, instance=owner)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
-        context = {'comment': form}
-    return render(request, "auctions/single_page.html", context)
-
+def create_comment(request, pk):
+    listing = Listing.objects.get(id=pk)
+    user = request.user
+    form = CommentForm(initial={"listing_id":listing.id})
+    context = {'form': form}
+    print(listing.id)
+    print(user)
+    return render(request, "auctions/create_comment.html", context)
 
 def createListing(request):
     form = ListingForm()

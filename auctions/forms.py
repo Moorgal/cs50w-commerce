@@ -9,7 +9,7 @@ class ListingForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comments
-        fields = ['user_id','body']
+        fields = ['user_id','listing_id','body']
 
 
 
