@@ -37,8 +37,7 @@ class Bids(models.Model):
    date = models.DateTimeField(auto_now_add=True)
    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
-   def __str__(self):
-       return self.listing_id
+
 
 class Comments(models.Model):
     listing_id = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='commentListing')
@@ -47,5 +46,5 @@ class Comments(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
-    
+
 

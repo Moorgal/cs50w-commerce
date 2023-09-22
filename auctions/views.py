@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .models import User, Listing, Categories, Comments
+from .models import User, Listing, Categories, Comments, Bids
 from .forms import ListingForm, CommentForm
 
 
@@ -35,9 +35,11 @@ def single_page(request, pk):
     page = Listing.objects.get(id=pk)
     is_verified = request.user in page.watchlist.all()
     comment = Comments.objects.filter(listing_id=pk)
+    bids = Bids.objects.filter(listing_id=pk)
     context = {'page': page,
                'is_verified': is_verified,
-               'comment': comment}
+               'comment': comment,
+               'bids':bids}
     return render(request, "auctions/single_page.html", context)
 
 def addToWatchList(request, pk):
@@ -67,6 +69,18 @@ def create_comment(request, pk):
         user_id=user,
         listing_id=listing,
         body=body,
+    ).save()
+    return HttpResponseRedirect(reverse('single_page', args=(listing.pk,)))
+
+def create_bid(request, pk):
+    listing = Listing.objects.get(id=pk)
+    user = request.user
+    amount = request.POST['amount']
+
+    Bids(
+        user_id=user,
+        listing_id=listing,
+        amount=amount,
     ).save()
     return HttpResponseRedirect(reverse('single_page', args=(listing.pk,)))
     

@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-
+<!-- watchlist -->
 {% if user.is_authenticated %}
     {% if is_verified %}
     <form action="{% url 'removeFromWatchList' page.id %}" method="POST">
@@ -17,7 +17,7 @@
     </form>
     {% endif %}
 {% endif %}
-
+<!-- end of watchlist -->
 <h1>{{page.title}}</h1>
 <hr><p>Category: 
 {% for category in page.category.all %}
@@ -26,48 +26,53 @@
 </p>
 <p>{{page.description}}</p>
 <p>{{listing_price}}</p>
-<img src="{{page.image_link}}" alt="image" style="height: 25vh;">
+    <img src="{{page.image_link}}" alt="image" style="height: 25vh;">
 <p>{{is_available}}</p>
 <p>amount of bids</p>
 <p>Listed by: {{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
-
-
-
-
-
-
-
+<!-- CRUD -->
 {% if user.is_authenticated %}
-<form action="{% url 'create_comment' page.id %}" method="POST">
-    {% csrf_token %}
-    <input type="text" name="body">
-</form>
+    {% if page.user == user %}
+        <hr>
+        <a href="{% url 'update-listing' page.id %}">Edit</a>
+        <br>
+        <a href="{% url 'delete-listing' page.id %}">Delete</a>
+        <hr>
+        {% endif %}
+<!-- end of CRUD  -->
+
+<!-- Bids  -->
+        <h2>Bids</h2>
+        <form action="{% url 'create_bid' page.id %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="amount" placeholder="Amount">
+        </form>
+        
+        {% for bid in bids %}
+        <h6><em>{{bid.user_id}}</em></h6>
+        <p>£{{bid.amount}}</p>
+        <p>{{bid.date}}</p>
+        <hr>
+        {% endfor %}
+<!-- End of Bids  -->
+
+<!-- COMMENTS -->
+        <h2>Comments</h2>
+        <form action="{% url 'create_comment' page.id %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="body" placeholder="Add comment">
+        </form>
 
 
-
-
-
-
-
-
-{% if page.user == user %}
-<hr>
-<a href="{% url 'update-listing' page.id %}">Edit</a>
-<br>
-<a href="{% url 'delete-listing' page.id %}">Delete</a>
-<hr>
-<a href="{% url 'index' %}">Home</a>
-{% endif %}
-
-{% endif %}
-
-<h3>Comments</h3>
-{% for com in comment %}
-<h6>{{com.user_id}}
-    <p>{{com.body}}</p>
-</h6>
-{% endfor %}
-
+        {% for com in comment %}
+        <h6><em>{{com.user_id}}</em></h6>
+        <p>{{com.body}}</p>
+        <p><em>{{com.date}}</em></p>
+        <hr>
+        {% endfor %}
+        <!-- end of Comments -->
+        
+        {% endif %}
 {% endblock body %}
