@@ -18,7 +18,27 @@
     {% endif %}
 {% endif %}
 <!-- end of watchlist -->
-<h1>{{page.title}}</h1>
+<h1>{{page.title}}  </h1>
+
+<!--  close auction -->
+{% if page.is_available == True %}
+<p>available</p>
+{% else %}
+<p>auction closed</p>
+{% endif %}
+{% if page.user == user and page.is_available == True %}
+
+<form action="{% url 'close_auction' page.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Close auction</button>
+</form>
+
+
+        <p>csukoggyya be</p>
+{% endif %}
+<!-- end of close auction -->
+
+
 <hr><p>Category: 
 {% for category in page.category.all %}
 <span style="border: 1px solid grey">{{category}}</span>

@@ -13,7 +13,7 @@
 </ul>
 
 {% for listing in listings %}
-
+  {% if listing.is_available == True %}
 <div class="card text-center w-75 p-3" style="margin: 10px auto;">
     <div class="card-header">
         {% for category in listing.category.all %}
@@ -30,7 +30,7 @@
         {{listing.listing_price}} £
     </div>
   </div class="mb-3">
-
+  {% endif %}
 
 {% endfor %}
 {% endblock %}

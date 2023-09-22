@@ -59,6 +59,12 @@ def removeFromWatchList(request, pk):
     data.watchlist.remove(request.user)
     return HttpResponseRedirect(reverse('single_page', args=(data.pk,)))
 
+def close_auction(request, pk):
+    auction = Listing.objects.get(id=pk)
+    auction.is_available = False
+    auction.save()
+
+
 
 def create_comment(request, pk):
     listing = Listing.objects.get(id=pk)
