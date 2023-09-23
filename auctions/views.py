@@ -52,7 +52,7 @@ def my_watchlist(request):
     # watchlist refers back to all users on that list (refered name in models.py)
     listings = currentUser.watchlist.all()
     context = {"listings": listings}
-    return render(request, "auctions/index.html", context)
+    return render(request, "auctions/watchlist.html", context)
 
 def removeFromWatchList(request, pk):
     data = Listing.objects.get(id=pk)
@@ -63,6 +63,7 @@ def close_auction(request, pk):
     auction = Listing.objects.get(id=pk)
     auction.is_available = False
     auction.save()
+    return HttpResponseRedirect(reverse('single_page', args=(auction.pk,)))
 
 
 

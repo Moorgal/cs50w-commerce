@@ -21,20 +21,20 @@
 <h1>{{page.title}}  </h1>
 
 <!--  close auction -->
-{% if page.is_available == True %}
-<p>available</p>
+{% if page.is_available == True%}
+    <p>available</p>
+{% elif page.is_available == False and user == page.user  %}
+    <p>Congratulation your auction is closed</p>
 {% else %}
-<p>auction closed</p>
+    <p>auction is closed</p>
 {% endif %}
+
 {% if page.user == user and page.is_available == True %}
 
 <form action="{% url 'close_auction' page.id %}" method="POST">
     {% csrf_token %}
     <button type="submit">Close auction</button>
 </form>
-
-
-        <p>csukoggyya be</p>
 {% endif %}
 <!-- end of close auction -->
 
