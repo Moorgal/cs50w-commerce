@@ -36,10 +36,12 @@ def single_page(request, pk):
     is_verified = request.user in page.watchlist.all()
     comment = Comments.objects.filter(listing_id=pk)
     bids = Bids.objects.filter(listing_id=pk)
+    last_bid_user = bids.latest('date').user_id
     context = {'page': page,
                'is_verified': is_verified,
                'comment': comment,
-               'bids':bids}
+               'bids':bids,
+               'last_bid_user':last_bid_user}
     return render(request, "auctions/single_page.html", context)
 
 def addToWatchList(request, pk):

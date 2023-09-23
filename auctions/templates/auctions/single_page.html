@@ -25,6 +25,15 @@
     <p>available</p>
 {% elif page.is_available == False and user == page.user  %}
     <p>Congratulation your auction is closed</p>
+
+
+
+    <!-- ????   -->
+{% elif page.is_available == False and user == last_bid_user  %}
+    <p>Congratulation you won this auction</p>
+<!-- ???? -->
+
+
 {% else %}
     <p>auction is closed</p>
 {% endif %}
