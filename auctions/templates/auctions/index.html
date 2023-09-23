@@ -3,7 +3,7 @@
 {% block body %}
 
 
-<ul class="nav">
+<ul class="nav justify-content-center">
   {% for cat in category %}
   <li class="nav-item">
       <a class="nav-link" href="{% url 'choose_category' cat.id %}">{{ cat.title }}</a>
@@ -11,20 +11,21 @@
   </li>
   {% endfor %}
 </ul>
-
+<div class="d-flex justify-content-center  flex-wrap "style="margin:auto 300px">
 {% for listing in listings %}
   {% if listing.is_available == True %}
-<div class="card text-center w-75 p-3" style="margin: 10px auto;">
+<div class="card text-center w-50 p-2" style="margin: 10px auto;">
     <div class="card-header">
         {% for category in listing.category.all %}
         <span style="border: 1px solid grey">{{category}}</span>
     {% endfor %}
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{listing.title}}</h5>
-      <img src="{{listing.image_link}}" alt="image" style="height: 50vh;"  class="mb-3">
+      <h5 class="card-title"><u>{{listing.title}}</u></h5>
+      <hr>
+      <img src="{{listing.image_link}}" alt="image" style="height: 40vh; max-width: 400px;"  class="mb-3">
       <br>
-    <a href="{% url 'single_page' listing.id %}" class="btn btn-primary">Go somewhere</a>
+    <a href="{% url 'single_page' listing.id %}" class="btn btn-primary">Details</a>
     </div>
     <div class="card-footer text-muted">
         {{listing.listing_price}} £
@@ -33,5 +34,6 @@
   {% endif %}
 
 {% endfor %}
+</div>
 {% endblock %}
 
