@@ -23,16 +23,12 @@
 <!--  close auction -->
 {% if page.is_available == True%}
     <p>available</p>
+                <!-- if auction closed and you are the seller -->
 {% elif page.is_available == False and user == page.user  %}
     <p>Congratulation your auction is closed</p>
-
-
-
-    <!-- ????   -->
+                <!-- if auction closed and you are the buyer -->
 {% elif page.is_available == False and user == last_bid_user  %}
     <p>Congratulation you won this auction</p>
-<!-- ???? -->
-
 
 {% else %}
     <p>auction is closed</p>

@@ -36,7 +36,12 @@ def single_page(request, pk):
     is_verified = request.user in page.watchlist.all()
     comment = Comments.objects.filter(listing_id=pk)
     bids = Bids.objects.filter(listing_id=pk)
-    last_bid_user = bids.latest('date').user_id
+    # if no bid yet then false, otherwise check who is the user who bid last
+    if not bids:
+        last_bid_user = False
+    else:
+        last_bid_user = bids.latest('date').user_id
+
     context = {'page': page,
                'is_verified': is_verified,
                'comment': comment,
