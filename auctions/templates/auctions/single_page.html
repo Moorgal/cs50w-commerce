@@ -1,6 +1,13 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+<!-- bid message -->
+<h1 class="d-flex justify-content-center"style="margin:auto 300px">{{message}}</h1>
+
+<!-- bid message -->
+<div class="d-flex justify-content-center m-5">
+<div class="m-5">
+
 <!-- watchlist -->
 {% if user.is_authenticated %}
     {% if is_verified %}
@@ -18,20 +25,24 @@
     {% endif %}
 {% endif %}
 <!-- end of watchlist -->
-<h1>{{page.title}}  </h1>
+<div class="d-flex justify-content-between">
+    <h1>{{page.title}}</h1>
+    <h1>£{{page.listing_price}}</h1>
+</div>
+
 
 <!--  close auction -->
 {% if page.is_available == True%}
-    <p>available</p>
+    <p style="color: blue;">available</p>
                 <!-- if auction closed and you are the seller -->
 {% elif page.is_available == False and user == page.user  %}
-    <p>Congratulation your auction is closed</p>
+    <p style="color: green;">Congratulation your auction is closed</p>
                 <!-- if auction closed and you are the buyer -->
 {% elif page.is_available == False and user == last_bid_user  %}
-    <p>Congratulation you won this auction</p>
+    <p style="color: green;">Congratulation you won this auction</p>
 
 {% else %}
-    <p>auction is closed</p>
+    <p style="color: red;">auction is closed</p>
 {% endif %}
 
 {% if page.user == user and page.is_available == True %}
@@ -50,15 +61,15 @@
 {% endfor %}
 </p>
 
+<div class="d-flex justify-content-between">
+    <p>{{page.description}}</p>
+    <img src="{{page.image_link}}" alt="image"style="height: 40vh; max-width: 400px; margin: 0 5px">
 
-<!-- bid message -->
-<h1>{{message}}</h1>
-<!-- bid message -->
+</div>
 
 
-<p>{{page.description}}</p>
-<p>£{{page.listing_price}}</p>
-    <img src="{{page.image_link}}" alt="image" style="height: 25vh;">
+
+
 <p>Listed by: {{page.user}}</p>
 <p>{{page.date}}</p>
 <hr>
@@ -72,7 +83,8 @@
         <hr>
         {% endif %}
 <!-- end of CRUD  -->
-
+</div>
+<div class="m-5">
 <!-- Bids  -->
         <h2>Bids</h2>
         <form action="{% url 'create_bid' page.id %}" method="POST">
@@ -87,7 +99,8 @@
         <hr>
         {% endfor %}
 <!-- End of Bids  -->
-
+</div>
+<div class="m-5">
 <!-- COMMENTS -->
         <h2>Comments</h2>
         <form action="{% url 'create_comment' page.id %}" method="POST">
@@ -105,4 +118,6 @@
         <!-- end of Comments -->
         
         {% endif %}
+    </div>
+</div>
 {% endblock body %}

@@ -11,6 +11,7 @@
   </li>
   {% endfor %}
 </ul>
+<h1 class="d-flex justify-content-center"style="margin:auto 300px">{{site}}</h1>
 <div class="d-flex justify-content-center  flex-wrap "style="margin:auto 300px">
 {% for listing in listings %}
   {% if listing.is_available == True %}
@@ -30,7 +31,7 @@
     <div class="card-footer text-muted">
         {{listing.listing_price}} £
     </div>
-  </div class="mb-3">
+  </div>
   {% endif %}
 
 {% endfor %}

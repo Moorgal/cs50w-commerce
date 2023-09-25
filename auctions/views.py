@@ -12,7 +12,8 @@ def index(request):
     listings = Listing.objects.filter(is_available=True)
     category = Categories.objects.all()
     context = {'listings': listings,
-               'category': category,}
+               'category': category,
+               'site': 'All listings',}
     return render(request, "auctions/index.html", context)
 
 def choose_category(request, pk):
@@ -21,15 +22,16 @@ def choose_category(request, pk):
         listings = Listing.objects.filter(is_available=True, category=the_category)
         category = Categories.objects.all()
         context = {'listings': listings,
-               'category': category,}
+               'category': category,
+               'site': chosen_category}
         return render(request, "auctions/index.html", context)
 
 
 def my_listings(request):
     currentUser = request.user
     listings = Listing.objects.filter(user = currentUser)
-    context = {"listings": listings}
-    return render(request, "auctions/index.html", context)
+    context = {"listings": listings, 'site': 'My listings'}
+    return render(request, "auctions/watchlist.html", context)
 
 def single_page(request, pk):
     page = Listing.objects.get(id=pk)
@@ -58,7 +60,7 @@ def my_watchlist(request):
     currentUser = request.user
     # watchlist refers back to all users on that list (refered name in models.py)
     listings = currentUser.watchlist.all()
-    context = {"listings": listings}
+    context = {"listings": listings, 'site': 'Watchlist'}
     return render(request, "auctions/watchlist.html", context)
 
 def removeFromWatchList(request, pk):

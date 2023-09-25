@@ -1,13 +1,42 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-<h1>Create Listing</h1>
+<div class="d-flex justify-content-center"style="margin:auto 300px">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h1>Create Listing</h1>
+    <div>
+        <p>{{form.title.label}}</p>
+        <p>{{form.title}}</p>
+    </div>
+    <div>
+        <p>{{form.description.label}}</p>
+        <p>{{form.description}}</p>
+    </div>
+    <div>
+        <p>{{form.category.label}}</p>
+        <p>{{form.category}}</p>
+    </div>
+    <div>
+        <p>{{form.listing_price.label}}
+        </p>
+        <p>{{form.listing_price}}
+        </p>
+    </div>
+    <div>
+        <p>{{form.image_link.label}}
+        </p>
+        <p>{{form.image_link}}
+        </p>
+    </div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
+
+
+
+
     <input type="submit">
 
 </form>
-
+</div>
 {% endblock body %}
+
