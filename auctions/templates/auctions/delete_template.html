@@ -1,6 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+<div class="d-flex justify-content-center"style="margin:auto 300px">
 
 <form action="" method="POST">
     {% csrf_token %}
@@ -8,6 +9,6 @@
     <button><a href="{% url 'index' %}">Go Back</a></button>
     <input type="submit" value="Confirm">
 </form>
-
+</div>
 
 {% endblock body%}

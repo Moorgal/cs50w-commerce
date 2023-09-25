@@ -3,7 +3,6 @@
 {% block body %}
 <!-- bid message -->
 <h1 class="d-flex justify-content-center"style="margin:auto 300px">{{message}}</h1>
-
 <!-- bid message -->
 <div class="d-flex justify-content-center m-5">
 <div class="m-5">
@@ -89,7 +88,7 @@
         <h2>Bids</h2>
         <form action="{% url 'create_bid' page.id %}" method="POST">
             {% csrf_token %}
-            <input type="text" name="amount" placeholder="Amount">
+            <input type="text" name="amount" placeholder="£ Amount">
         </form>
 
         {% for bid in bids %}
